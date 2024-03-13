@@ -1,9 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
- 	<select id="getBoardInfo" parameterType="int" resultType="BoardVO">
-		SELECT *
-		FROM board
-		WHERE board_bo = #{boardNo}
+
+<mapper namespace="com.example.board.board.mapper.BoardMapper">
+	
+	<select id="getBoardList" parameterType="" resultType="BoardVO">
+		SELECT * FROM ( SELECT ROWNUM AS rn, a.* FROM (
+            SELECT b.*
+            FROM board b
+            WHERE title LIKE '%#{title}%'
+            AND content LIKE '%#{content}%'
+            AND writer LIKE '%#{writer}%'
+            ORDER BY board_no
+		) a WHERE ROWNUM <= 5 ) b WHERE rn > 0
 	</select>
+	
+	<select id="getBoardInfo" parameterType="int" resultType="BoardVO">
+		SELECT BOARD_NO
+				, TITLE
+				, CONTENT
+				, WRITER
+				, WRITE_DATE
+				, CLICK_CNT
+				, IMAGE
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	
+</mapper>

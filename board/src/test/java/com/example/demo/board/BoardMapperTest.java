@@ -10,9 +10,13 @@ import com.example.demo.board.mapper.BoardMapper;
 public class BoardMapperTest {
 	@Autowired BoardMapper mapper;
 	
+	@Autowired BoardMapper mapper;
+	
 	@Test
-	public void 단건조회() {
-		BoardVO vo = new BoardVO();
-		vo.setBoardNo(null);
+	public void 게시글단건조회() {
+		int boardNo = 10;
+		BoardVO bvo = mapper.getBoardInfo(boardNo);
+		System.out.println(bvo);
+		assertEquals(Integer.toString(boardNo), bvo.getBoardNo());
 	}
 }
