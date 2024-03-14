@@ -1,18 +1,13 @@
 package com.example.demo.emp.web;
 
-import org.apache.ibatis.annotations.Delete;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.emp.EmpVO;
 import com.example.demo.emp.EmpSearchVO;
+import com.example.demo.emp.EmpVO;
 import com.example.demo.emp.mapper.EmpMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -22,10 +17,10 @@ import lombok.RequiredArgsConstructor;
 public class EmpController {
 	final EmpMapper mapper;
 
-	// 등록 페이지 이동.(photo col 추가 insert)
 	@GetMapping("/emp/insert")
-	public void insert() {
-
+	public void insert(@ModelAttribute EmpVO vo) throws Exception {
+		empService.create(vo);
+		return "redirect:/emp/list";
 	}
 
 	// 수정 페이지 이동.
@@ -40,15 +35,15 @@ public class EmpController {
 		return "/emp/list";
 	}
 
-	@PostMapping("/insert")
-	public String insert(@ModelAttribute("emp") EmpVO vo,MultipartFile photoFile) {
-		vo.setPhoto(photoFile.getOriginalFilename())
-		System.out.println(vo);
-//		mapper.insertEmp(vo);
-		// 커맨드 객체는 model에 추가.
-//		model.addAttribute("insertResult","success");
-		return "redirect:/emp/list";
-	}
+//	@PostMapping("/insert")
+//	public String insert(@ModelAttribute("emp") EmpVO vo) {
+////		vo.setPhoto(photoFile.getOriginalFilename());
+//		System.out.println(vo);
+////		mapper.insertEmp(vo);
+//		// 커맨드 객체는 model에 추가.
+////		model.addAttribute("insertResult","success");
+//		return "redirect:/emp/list";
+//	}
 	// 수정처리
 
 	// 삭제처리

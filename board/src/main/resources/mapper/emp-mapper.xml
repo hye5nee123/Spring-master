@@ -55,32 +55,48 @@
 		FROM employees
 		WHERE employee_id = #{employeeId}
 	</select>
-	<insert id="insertEmp" parameterType="EmpVO">
-		<selectKey keyProperty="employeeId" order="BEFORE"
-			resultType="int">
-			select employees_seq.nextval from dual
+<insert id="insertEmp" 
+	        parameterType="EmpVO">
+		<selectKey keyProperty="employeeId"
+		           order="BEFORE"
+		           resultType="int">
+			SELECT employees_seq.nextval 
+			  FROM dual
 		</selectKey>
-		insert into employees
-		(EMPLOYEE_ID,
-		FIRST_NAME,
-		LAST_NAME,
-		EMAIL,
-		HIRE_DATE,
-		JOB_ID,
-		<if test="salary!=null">SALARY,</if>
-		MANAGER_ID,
-		DEPARTMENT_ID)
-		values(
-		#{employeeId},
-		#{firstName},
-		#{lastName},
-		#{email},
-		#{hireDate},
-		#{jobId},
-		<if test="salary!=null">#{salary},</if>
-		#{managerId},
-		#{departmentId}
-		)
+		INSERT INTO employees
+			(
+			  employee_id
+			, first_name
+			, last_name
+			, email
+			, phone_number
+			, hire_date
+			, job_id
+			<if test="salary != null">
+			, salary
+			</if>
+			, commission_pct
+			, manager_id
+			, department_id
+			, photo
+			)
+		VALUES
+			(
+			  #{employeeId}
+			, #{firstName}
+			, #{lastName}
+			, #{email}
+			, #{phoneNumber}
+			, #{hireDate}
+			, #{jobId}
+			<if test="salary != null">
+			, #{salary}
+			</if>
+			, #{commissionPct}
+			, #{managerId}
+			, #{departmentId}
+			, #{photo}
+			)
 	</insert>
 	<delete id="deleteEmp" parameterType="int">
 		DELETE FROM employees
