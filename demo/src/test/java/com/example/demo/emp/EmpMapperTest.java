@@ -1,6 +1,7 @@
 package com.example.demo.emp;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class EmpMapperTest {
 	
 	@Autowired EmpMapper mapper;
 	
-	@Test
+//	@Test
 	public void 사원전체조회() {
 		EmpVO vo = new EmpVO();
 		SearchVO svo = new SearchVO();
@@ -41,20 +42,21 @@ public class EmpMapperTest {
 ////		assertEquals(employeeId, vo.getEmployeeId());
 //	}
 //	
-//	@Test
-//	public void 사원등록() {
-//	    // vo 객체 생성
-//	    EmpVO vo = EmpVO.builder()
-//	            .lastName("홍")
-//	            .email("a1@a.com")
-//	            .hireDate(new Date())
-//	            .jobId("IT_PROG")
-//	            .build();
-//
-//	    int result = mapper.insertEmp(vo);
-//	    System.out.println("등록된 사번: " + vo.getEmployeeId());
-//	    System.out.println("등록건수: " + result);
-//	}
+	@Test
+	public void 사원등록() {
+	    // vo 객체 생성
+	    EmpVO vo = EmpVO.builder()
+	            .lastName("홍")
+	            .email("a1@add.com")
+	            .hireDate(new Date())
+	            .jobId("IT_PROG")
+	            .salary(10000)
+	            .build();
+
+	    int result = mapper.insertEmp(vo);
+	    System.out.println("등록된 사번: " + vo.getEmployeeId());
+	    System.out.println("등록건수: " + result);
+	}
 	
 //    @Test
 //    public void 사원삭제() {

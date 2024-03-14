@@ -1,31 +1,88 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.board.mapper.BoardMapper">
+	
+	<sql id="condition">
+		<where>
+			<if test="vo.title != null">
+				title LIKE '%${vo.title}%'
+			</if>
+			<if test="vo.content != null">
+				content LIKE '%${vo.content}%'
+			</if>
+			<if test="vo.writer != null">
+				writer LIKE '%${vo.writer}%'
+			</if>
+		</where>
+	</sql>
 
-<mapper namespace="com.example.board.board.mapper.BoardMapper">
-	
-	<select id="getBoardList" parameterType="" resultType="BoardVO">
-		SELECT * FROM ( SELECT ROWNUM AS rn, a.* FROM (
-            SELECT b.*
-            FROM board b
-            WHERE title LIKE '%#{title}%'
-            AND content LIKE '%#{content}%'
-            AND writer LIKE '%#{writer}%'
-            ORDER BY board_no
-		) a WHERE ROWNUM <= 5 ) b WHERE rn > 0
+	<select id="getBoardList" resultType="BoardVO">
+		SELECT * FROM ( SELECT rownum rn, a.* FROM (
+		
+		        SELECT rownum id, board.* 
+		          FROM board
+		      <include refid="condition" />
+		      ORDER BY board_no
+		
+		) a WHERE rownum <![CDATA[<=]]> #{svo.end} ) b WHERE rn >= #{svo.start}
 	</select>
 	
-	<select id="getBoardInfo" parameterType="int" resultType="BoardVO">
-		SELECT BOARD_NO
-				, TITLE
-				, CONTENT
-				, WRITER
-				, WRITE_DATE
-				, CLICK_CNT
-				, IMAGE
-		FROM board
-		WHERE board_no = #{boardNo}
+	<select id="getBoardInfo" 
+			parameterType="int" 
+			resultType="BoardVO">
+		SELECT board_no
+			   , title
+			   , content
+			   , writer
+			   , write_date
+			   , click_cnt
+			   , image
+		  FROM board
+		 WHERE board_no = #{boardNo}
 	</select>
 	
+	<insert id="insertBoard" 
+			parameterType="BoardVO">
+		<selectKey keyProperty="boardNo"
+				   order="BEFORE"
+				   resultType="int">
+			SELECT board_seq.nextval
+			  FROM dual
+		</selectKey>
+		INSERT INTO board
+			(
+			 board_no
+			 , title
+			 , content
+			 , writer
+			 , write_date
+			 , click_cnt
+			 , image
+			)
+		VALUES
+			(
+			 #{boardNo}
+			 , #{title}
+			 , #{content}
+			 , #{writer}
+			 , #{writeDate}
+			 , #{clickCnt}
+			 , #{image}
+			)
+	</insert>
+	
+	<update id="updateBoard" 
+			parameterType="BoardVO">
+		UPDATE board
+		   SET title = #{title}
+			 , content = #{content}
+		 WHERE board_no = #{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		 WHERE board_no = #{boardNo}	
+	</delete>
 	
 </mapper>

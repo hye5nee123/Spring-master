@@ -24,6 +24,6 @@ import lombok.NoArgsConstructor;
 	String departmentId;
 	String managerId;
 	String phone;
-	
+	String photo;
 	private int count;
 	}

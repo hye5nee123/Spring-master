@@ -31,7 +31,7 @@
 				<result  property="firstName" column="FIRST_NAME"></result>
 				<result  property="phone" column="PHONE_NUMBER"></result>
 			</resultMap>
-	<select id="getEmpList" resultType="empResultMap">
+	<select id="getEmpList" resultMap="empResultMap">
 	SELECT * FROM ( SELECT rownum rn, a.* FROM (
 	
 		SELECT rownum id, EMPLOYEE_ID

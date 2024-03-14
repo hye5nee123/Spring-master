@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+ <tr>
+ <th>employee_id</th>
+ <th>first_name</th>
+ <th>last_name</th>
+ </tr>
+<tr th:each="emp : ${empList}">
+ <td th:text="${emp.employeeId}"></td>
+ <td th:text="${emp.firstName}"></td>
+ <td th:text="${emp.lastName}"></td>
+ <td th:text="${emp.hireDate}"></td>
+<td><button onclick="modifyEmployee(${emp.employeeId})>수정</button></td>
+<td><button>삭제</button></td>
+ </tr>
+</table>
+</body>
+</html>
