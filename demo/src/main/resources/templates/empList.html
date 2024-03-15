@@ -1,22 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.firstRow {
+	color: yellowgreen
+}
+
+.oddRow {
+	color: pink
+}
+
+.backColor {
+	background-color: black
+}
+</style>
 </head>
 <body>
-<table>
- <tr>
- <th>employee_id</th>
- <th>first_name</th>
- <th>last_name</th>
- </tr>
-<tr th:each="emp : ${empList}">
- <td th:text="${emp.employeeId}"></td>
- <td th:text="${emp.firstName}"></td>
- <td th:text="${emp.lastName}"></td>
- <td th:text="${emp.hireDate}"></td>
- </tr>
-</table>
+<div layout:fragment="content">
+	사원수 <span th:text="${#lists.size(empList)}"></span>
+	회사명<span th:utext="${companyName}"></span>
+	<table>
+		<tr>
+			<th>No.</th>
+			<th>employee_id</th>
+			<th>Name</th>
+			<th>hire_date</th>
+			<th>salary</th>
+			<th>보너스</th>
+			<th>수정/삭제</th>
+		</tr>
+		<tr th:each="emp,stat : ${empList}"
+			th:class="${stat.first ? 'firstRow' : stat.odd ? 'oddRow' :_}">
+			<td th:text="${stat.count}	" class="backColor">100</td>
+			<td th:text="${emp.employeeId}">100</td>
+			<td th:text="|${emp.firstName} ${emp.lastName}|">길동</td>
+			<!-- /* <td th:text="${emp.firstName}+ ' ' + ${emp.lastName}">길동</td>*/ -->
+			<td th:text="${#dates.format(emp.hireDate, 'yyyy-MM-dd')}">2024-03-15</td>
+			<td th:text="${#numbers.formatInteger(emp.salary, 3,'COMMA')}"
+				th:if="${emp.salary le 10000 and emp.salary ge 5000}"></td>
+			<td><button th:if="${emp.salary} < 10000">신청</button>
+			<button th:unless="${emp.salary} < 10000">미신청</button></td>
+			<td><!-- "http://localhost:8081/update/100" -->
+			<a th:href="@{/update/{id}(id=${emp.employeeId})}">수정</a>
+			<a th:href="@{/delete(employeeId=${emp.employeeId})}">삭제</a>
+			</td>
+		</tr>
+	</table>
+	<div class="footerSector" th:insert="~{footer :: copy}">
+	여기에 삽입
+	</div>
+	</div>
+	<script th:inline="javascript">
+	let empList =[[${empList}]];
+	console.log(empList[2].firstName);
+
+	</script>	
 </body>
 </html>

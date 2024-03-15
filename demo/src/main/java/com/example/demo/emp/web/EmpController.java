@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.emp.EmpVO;
+import com.example.demo.emp.SearchVO;
 import com.example.demo.emp.mapper.EmpMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -28,30 +30,31 @@ public class EmpController {
 	public List<EmpVO> ajaxEmp() {
 		return mapper.getEmpList(null, null);
 	}
-	
+
 	final EmpMapper mapper; // 의존성 주입 dependency injection
 
 	@PostMapping("/insert2")
 	public ResponseEntity<EmpVO> insert2(EmpVO vo) {
-		return new ResponseEntity<>(vo,HttpStatus.OK);
+		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping("/empResult")
 	public String result() {
 		return "result";
 	}
-	
+
 	@RequestMapping("/empList")
-	public String empList(Model model) {
-		model.addAttribute("empList", mapper.getEmpList(null, null));
+	public String empList(Model model, EmpVO vo, SearchVO svo) {
+		model.addAttribute("companyName", "<i><font color='red'>예담주식회사</font></i>");
+		model.addAttribute("empList", mapper.getEmpList(vo, svo));
 		return "empList";
 	}
-	
+
 	@PostMapping("/insert3")
-	public String insert3(EmpVO vo, RedirectAttributes rttr ) {
+	public String insert3(EmpVO vo, RedirectAttributes rttr) {
 		System.out.println("등록 " + vo);
-		rttr.addAttribute("inserResult","성공");
-		rttr.addAttribute("flashResult","한번만");
+		rttr.addAttribute("inserResult", "성공");
+		rttr.addAttribute("flashResult", "한번만");
 		return "redirect:empResult";
 	}
 
@@ -67,11 +70,21 @@ public class EmpController {
 		return mv;
 	}
 
+	@GetMapping("/update/{empId}")
+	public String update(@PathVariable int empId) {
+		System.out.println(empId);
+		return "Index";
+	}
+
+	@GetMapping("/delete")
+	public String delete(int employeeId) {
+		System.out.println(employeeId);
+		return "Index";
+	}
+
 	@GetMapping("/")
 	public String test() {
 		return "Index";
 	}
-
-
 
 }
