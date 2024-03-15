@@ -25,16 +25,16 @@ public class EmpController {
 	}
 
 	// 수정 페이지 이동.
-	@GetMapping("/emp/update")
+	@GetMapping("/emp/update{empId}")
 	public String update(@PathVariable int empId) {
 		System.out.println(empId);
 		return "Index";
 	}
-
+	
 	@GetMapping("/emp/list")
 	public String empList(Model model, EmpVO vo, EmpSearchVO svo) {
 		model.addAttribute("empList", mapper.getEmpList(vo, svo));
-		return "/emp/list";
+		return "emp/list";
 	}
 
 //	@PostMapping("/insert")

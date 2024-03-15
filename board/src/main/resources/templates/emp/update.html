@@ -5,20 +5,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>사원수정</h2>
-    <form action="/update" method="post">
-        <input type="hidden" name="employeeId" value="${employee.id}">
-        Last Name: <input name="lastName" value="${employee.lastName}"><br>
-        Hire Date: <input name="hireDate" value="${employee.hireDate}"><br>
-        Job Id:
-        <select name="jobId">
-            <option value="IT_PROG" ${employee.jobId eq 'IT_PROG' ? 'selected' : ''}>Programmer</option>
-            <option value="ST_MAN" ${employee.jobId eq 'ST_MAN' ? 'selected' : ''}>Stock Manager</option>
-        </select><br>
-        Email: <input name="email" value="${employee.email}"><br>
-        <button>수정</button>
-    </form>
-
+	<h2>사원등록</h2>
+	<form action="/update" method="post">
+		lastName<input name="lastName">
+		hireDate<input name="hireDate">
+		jobId<select name="jobId" >
+			<option value="IT_PROG">Programmer</option>
+			<option value="ST_MAN">Stock Manager</option>
+		</select>
+		이메일<input name="email">
+		<button>등록</button>
+	</form>
 </body>
 
 </html>
