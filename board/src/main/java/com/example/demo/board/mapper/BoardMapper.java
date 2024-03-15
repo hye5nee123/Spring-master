@@ -11,8 +11,14 @@ import com.example.demo.board.SearchVO;
 @Mapper
 public interface BoardMapper {
 	List<BoardVO> getBoardList(@Param("vo") BoardVO vo, SearchVO svo);
+
 	BoardVO getBoardInfo(int boardNo);
+
 	int insertBoard(BoardVO vo);
+
 	int updateBoard(BoardVO vo);
+
 	int deleteBoard(int boardNo);
+
+	int getBoardList(BoardVO vo);
 }

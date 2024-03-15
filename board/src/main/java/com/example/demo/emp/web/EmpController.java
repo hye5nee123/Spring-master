@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.emp.EmpSearchVO;
 import com.example.demo.emp.EmpVO;
@@ -18,15 +19,16 @@ public class EmpController {
 	final EmpMapper mapper;
 
 	@GetMapping("/emp/insert")
-	public void insert(@ModelAttribute EmpVO vo) throws Exception {
-		empService.create(vo);
+	public String insert(@ModelAttribute EmpVO vo) throws Exception {
+		mapper.empInsert(vo);
 		return "redirect:/emp/list";
 	}
 
 	// 수정 페이지 이동.
 	@GetMapping("/emp/update")
-	public void update() {
-
+	public String update(@PathVariable int empId) {
+		System.out.println(empId);
+		return "Index";
 	}
 
 	@GetMapping("/emp/list")

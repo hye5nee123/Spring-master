@@ -16,8 +16,10 @@
  <td th:text="${emp.firstName}"></td>
  <td th:text="${emp.lastName}"></td>
  <td th:text="${emp.hireDate}"></td>
- <td><button onclick="goToUpdateForm(${emp.employeeId})>수정</button></td>
-<td><button>삭제</button></td>
+ <td>
+ <a th:href="@{/update/{id}(id=${emp.employeeId})}">수정</a>
+<a th:href="@{/delete(employeeId=${emp.employeeId})}">삭제</a>
+</td>
  </tr>
 </table>
 </body>
