@@ -19,11 +19,12 @@ import lombok.NoArgsConstructor;
 	String email;
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	Date hireDate;
-	int salary;
+	Integer salary;
 	String jobId;
 	String departmentId;
 	String managerId;
-	String phone;
+	String phoneNumber;
 	String photo;
-	private int count;
+	//integer int 차이 생각.
+	Integer commissionPct;
 	}

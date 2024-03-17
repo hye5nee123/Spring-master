@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<h2>사원등록</h2>
-	<form action="/update" method="post">
-		lastName<input name="lastName">
-		hireDate<input name="hireDate">
-		jobId<select name="jobId" >
+	<form action="/update" method="post" >
+		이름<input name="lastName"  th:value="${emp.lastName}">
+		입사일<input name="hireDate" th:value="${#dates.format(emp.hireDate, 'yyyy/MM/dd')}">
+		부서<select name="jobId" th:value="${emp.jobId}">
 			<option value="IT_PROG">Programmer</option>
 			<option value="ST_MAN">Stock Manager</option>
 		</select>
-		이메일<input name="email">
+		이메일<input name="email" th:value="${emp.email}">
 		<button>등록</button>
 	</form>
 </body>

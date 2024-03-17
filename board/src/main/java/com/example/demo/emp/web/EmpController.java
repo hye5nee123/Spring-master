@@ -1,11 +1,16 @@
 package com.example.demo.emp.web;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.emp.EmpSearchVO;
 import com.example.demo.emp.EmpVO;
@@ -18,19 +23,39 @@ import lombok.RequiredArgsConstructor;
 public class EmpController {
 	final EmpMapper mapper;
 
+	// 등록페이지 이동
 	@GetMapping("/emp/insert")
-	public String insert(@ModelAttribute EmpVO vo) throws Exception {
-		mapper.empInsert(vo);
+	public void insert() {
+	}
+
+	// 등록처리
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute("emp") EmpVO vo, MultipartFile photoFile)
+			throws IllegalStateException, IOException {
+		// 파일업로드
+		File file = new File("d:/upload", photoFile.getOriginalFilename());
+		photoFile.transferTo(file);
+
+		vo.setPhoto(photoFile.getOriginalFilename());
+		System.out.println(vo);
+		mapper.insertEmp(vo);
 		return "redirect:/emp/list";
 	}
 
+//	// 수정 페이지 이동.
+//	@GetMapping("/emp/update{empId}")
+//	public String update(@PathVariable int empId) {
+//		System.out.println(empId);
+//		return "Index";
+//	}
 	// 수정 페이지 이동.
-	@GetMapping("/emp/update{empId}")
-	public String update(@PathVariable int empId) {
+	@GetMapping("/emp/update/{empId}")
+	public String update(@PathVariable int empId, Model model) {
+		model.addAttribute("emp", mapper.getEmpInfo(empId));
 		System.out.println(empId);
-		return "Index";
+		return "emp/update";
 	}
-	
+
 	@GetMapping("/emp/list")
 	public String empList(Model model, EmpVO vo, EmpSearchVO svo) {
 		model.addAttribute("empList", mapper.getEmpList(vo, svo));

@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h2>사원등록</h2>
-	<form action="/insert" method="post">
+	<form action="/insert" method="post" enctype="multipart/form-data">
 		lastName<input name="lastName">
 		hireDate<input name="hireDate">
 		jobId<select name="jobId" >
@@ -14,6 +14,7 @@
 			<option value="ST_MAN">Stock Manager</option>
 		</select>
 		이메일<input name="email">
+		파일<input name="photoFile" type="file">
 		<button>등록</button>
 	</form>
 </body>

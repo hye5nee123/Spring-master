@@ -31,7 +31,8 @@
 	<select id="getEmpList" resultMap="empResultMap">
 		SELECT * FROM ( SELECT rownum rn, a.* FROM (
 
-		SELECT rownum id, EMPLOYEE_ID
+		SELECT rownum id,
+		EMPLOYEE_ID,
 		FIRST_NAME,
 		LAST_NAME,
 		EMAIL,
@@ -55,60 +56,62 @@
 		FROM employees
 		WHERE employee_id = #{employeeId}
 	</select>
-<insert id="insertEmp" 
-	        parameterType="EmpVO">
-		<selectKey keyProperty="employeeId"
-		           order="BEFORE"
-		           resultType="int">
-			SELECT employees_seq.nextval 
-			  FROM dual
+	<insert id="insertEmp" parameterType="EmpVO">
+		<selectKey keyProperty="employeeId" order="BEFORE"
+			resultType="int">
+			SELECT employees_seq.nextval
+			FROM dual
 		</selectKey>
 		INSERT INTO employees
-			(
-			  employee_id
+		(
+		employee_id
 			, first_name
-			, last_name
-			, email
+		, last_name
+		, email
 			, phone_number
-			, hire_date
-			, job_id
-			<if test="salary != null">
+		, hire_date
+		, job_id
+		<if test="salary != null">
 			, salary
-			</if>
-			, commission_pct
-			, manager_id
-			, department_id
-			, photo
-			)
+		</if>
+		, commission_pct
+		, manager_id
+		, department_id
+		, photo
+		)
 		VALUES
-			(
-			  #{employeeId}
-			, #{firstName}
-			, #{lastName}
-			, #{email}
-			, #{phoneNumber}
-			, #{hireDate}
-			, #{jobId}
-			<if test="salary != null">
+		(
+		#{employeeId}
+		, #{firstName}
+		, #{lastName}
+		, #{email}
+		, #{phoneNumber}
+		, #{hireDate}
+		, #{jobId}
+		<if test="salary != null">
 			, #{salary}
-			</if>
-			, #{commissionPct}
-			, #{managerId}
-			, #{departmentId}
-			, #{photo}
-			)
+		</if>
+		, #{commissionPct}
+		, #{managerId}
+		, #{departmentId}
+		, #{photo}
+		)
 	</insert>
 	<delete id="deleteEmp" parameterType="int">
 		DELETE FROM employees
-		WHERE EMPLOYEE_ID = #{employeeId}
+		WHERE
+		EMPLOYEE_ID = #{employeeId}
 	</delete>
 	<select id="getStat" resultType="map">
 		SELECT E.DEPARTMENT_ID "id",
 		D.DEPARTMENT_NAME "name",
 		COUNT(*) AS "cnt"
 		FROM EMPLOYEES E
-		JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
-		WHERE E.DEPARTMENT_ID IS NOT NULL
+		JOIN
+		DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+		WHERE
+		E.DEPARTMENT_ID IS NOT NULL
 		GROUP BY E.DEPARTMENT_ID, D.DEPARTMENT_NAME
 	</select>
+	<update id=""></update>
 </mapper>
