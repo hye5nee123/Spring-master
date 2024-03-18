@@ -19,6 +19,6 @@ public interface BoardMapper {
 	int updateBoard(BoardVO vo);
 
 	int deleteBoard(int boardNo);
+	public long getCount(BoardVO vo,SearchVO svo);
 
-	int getBoardList(BoardVO vo);
 }

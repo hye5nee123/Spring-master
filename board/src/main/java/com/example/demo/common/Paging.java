@@ -7,7 +7,7 @@ public class Paging {
 
 	int pageUnit = 10; // 한페이지 출력할 레코드 건수
 	int pageSize = 10; // 페이지번호 수 (5) 1~ 5까지
-	int lastPage; // 마지막 페이지번호
+	long lastPage; // 마지막 페이지번호
 	long totalRecord; // 전체 레코드건수
 	Integer page = 1; // 현재 페이지
 	long startPage; // 페이지그룹내에서 시작페이지번호
@@ -41,12 +41,12 @@ public class Paging {
 		this.pageSize = pageSize;
 	}
 
-	public long getLastPage() {
+	public long getLastPage(long lastPage) {
 		lastPage = totalRecord / pageUnit + (totalRecord % pageUnit > 0 ? 1 : 0);
 		return lastPage;
 	}
 
-	public long setLastPage(long lastPage) {
+	public void setLastPage(long lastPage) {
 		this.lastPage = lastPage;
 	}
 
@@ -54,7 +54,7 @@ public class Paging {
 		return totalRecord;
 	}
 
-	public long setTotalRecord(long totalRecord) {
+	public void setTotalRecord(long totalRecord) {
 		this.totalRecord = totalRecord;
 	}
 

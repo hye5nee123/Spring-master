@@ -63,7 +63,7 @@ public class EmpController {
 		svo.setStart(pvo.getFirst());
 		svo.setEnd(pvo.getLast());
 		pvo.setTotalRecord(mapper.getCount());
-		model.addAllAttribute("paging", pvo);
+		model.addAttribute("paging", pvo);
 		// 목록조회
 
 		model.addAttribute("empList", mapper.getEmpList(vo, svo));
