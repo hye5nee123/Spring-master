@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>댓글 목록</title>
+    <!-- 필요한 스타일 시트나 스크립트를 추가할 수 있습니다 -->
+</head>
+<body>
+    <h3>댓글 목록</h3>
+
+    <table>
+        <tr>
+            <th>리뷰번호</th>
+            <th>게시글번호</th>
+            <th>댓글</th>
+            <th>작성자</th>
+            <th>작성날짜</th>
+            <th>수정날짜</th>
+        </tr>
+        <tr th:each="reply, stat : ${replyList}">
+            <td th:text="${reply.rno}"></td>
+            <td th:text="${reply.bno}"></td>
+            <td th:text="${reply.reply}"></td>
+            <td th:text="${reply.replyer}"></td>
+            <td th:text="${reply.replyDate}"></td>
+            <td th:text="${reply.updateDate}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>

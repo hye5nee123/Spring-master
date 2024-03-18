@@ -16,8 +16,11 @@
 			</if>
 		</where>
 	</sql>
-
 	<select id="getBoardList" resultType="BoardVO">
+	SELECT *
+	FROM board;
+	</select>
+	 <select id="getBoardList" resultType="BoardVO">
 		SELECT * FROM ( SELECT rownum rn, a.* FROM (
 		
 		        SELECT rownum id, board.* 

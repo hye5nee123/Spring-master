@@ -9,8 +9,10 @@
 		values (seq_reply.nextval, #{bno}, #{reply},
 		#{replyer})
 	</insert>
+	
 	<select id="read" resultType="ReplyVO">
-		select * from tbl_reply where rno =
-		#{rno}
+		select * 
+		from tbl_reply 
+		where rno = #{rno}
 	</select>
 </mapper>

@@ -2,9 +2,12 @@ package com.example.demo.reply.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.reply.ReplyVO;
+
 @Mapper
 public interface ReplyMapper {
-	int insert(int ReplyVO);
+	public int insert(int ReplyVO);
 
-	int read(int ReplyVO);
+	public ReplyVO read(ReplyVO bno);
+
 }
