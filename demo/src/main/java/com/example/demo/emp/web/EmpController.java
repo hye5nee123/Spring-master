@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.common.Paging;
 import com.example.demo.emp.EmpVO;
 import com.example.demo.emp.SearchVO;
 import com.example.demo.emp.mapper.EmpMapper;
@@ -22,69 +23,94 @@ import com.example.demo.emp.mapper.EmpMapper;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Controller // 컨테이너 빈 등록 사용자 요청 처리 커멘트 핸들러 변환.
+@Controller // 컨테이너 빈 등록 + 사용자요청처리할 수 있는 커맨드 핸들러 변환
 public class EmpController {
-
+	
+	
+	final EmpMapper mapper;   //의존성주입(DI dependency Injection)
+	
+	
 	@RequestMapping("/ajaxEmp")
 	@ResponseBody
-	public List<EmpVO> ajaxEmp() {
+	public List<EmpVO>  ajaxEmp() {
 		return mapper.getEmpList(null, null);
 	}
+	
+	
+	@RequestMapping("/empResult")
+	public String result(){
+		return "result";
+	}
+	
+	
+	@RequestMapping("/empList")
+	public String empList(Model model, 
+			         EmpVO vo, 
+			         SearchVO svo, 
+			         Paging pvo){ 
 
-	final EmpMapper mapper; // 의존성 주입 dependency injection
-
+		//페이징처리
+		pvo.setPageUnit(5);  //데이터수
+		pvo.setPageSize(3);  //페이지번호
+		svo.setStart(pvo.getFirst());
+		svo.setEnd(pvo.getLast());
+		pvo.setTotalRecord(mapper.getCount(vo,svo));
+		model.addAttribute("paing", pvo);
+		
+		//목록조회
+		model.addAttribute("empList", mapper.getEmpList(vo, svo));
+		return "empList"; 
+	}
+	
+	@PostMapping("/insert3")
+	public String insert3(EmpVO vo, RedirectAttributes rttr) {
+		System.out.println("등록: " +  vo);
+		rttr.addAttribute("insertResult", "성공");
+		rttr.addFlashAttribute("flashResult", "한번만 사용가능");
+		return "redirect:empResult";
+	}
+	
 	@PostMapping("/insert2")
 	public ResponseEntity<EmpVO> insert2(EmpVO vo) {
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
-
-	@RequestMapping("/empResult")
-	public String result() {
-		return "result";
-	}
-
-	@RequestMapping("/empList")
-	public String empList(Model model, EmpVO vo, SearchVO svo) {
-		model.addAttribute("companyName", "<i><font color='red'>예담주식회사</font></i>");
-		model.addAttribute("empList", mapper.getEmpList(vo, svo));
-		return "empList";
-	}
-
-	@PostMapping("/insert3")
-	public String insert3(EmpVO vo, RedirectAttributes rttr) {
-		System.out.println("등록 " + vo);
-		rttr.addAttribute("inserResult", "성공");
-		rttr.addAttribute("flashResult", "한번만");
-		return "redirect:empResult";
-	}
-
+	
+	
 	@PostMapping("/insert")
-	public ModelAndView insert(@ModelAttribute("emp") EmpVO vo, Model model) {
+	public ModelAndView insert(@ModelAttribute("emp") EmpVO vo) {
 		System.out.println(vo);
-//		mapper.insertEmp(vo);
-		// 커맨드 객체는 model에 추가.
-//		model.addAttribute("insertResult","success");
+		//mapper.insertEmp(vo);
+		//커맨드객체는 model에 추가
+			
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("result");
 		mv.addObject("insertResult", "success");
 		mv.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		return mv;
 	}
-
+	
+	@GetMapping("/info/{empId}")
+	public String info(@PathVariable int empId, Model model) {
+		model.addAttribute("emp", mapper.getEmpInfo(empId));
+		return "empInfo";
+	}  
+	
 	@GetMapping("/update/{empId}")
 	public String update(@PathVariable int empId) {
 		System.out.println(empId);
-		return "Index";
-	}
-
+		return "index";
+	}  
+	
 	@GetMapping("/delete")
-	public String delete(int employeeId) {
-		System.out.println(employeeId);
-		return "Index";
-	}
-
+	public String delete(int employeeId, String name) {
+		System.out.println(employeeId + ":" + name);
+		return "index";
+	}  
+	
 	@GetMapping("/")
 	public String test() {
-		return "Index";
-	}
+		return "index";
+	}  
+
 
 }

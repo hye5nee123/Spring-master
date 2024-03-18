@@ -29,4 +29,6 @@ public interface EmpMapper {
 	@Select("select * from employees")
 	public List<EmpVO> getList();
 
+	public long getCount();
+
 }

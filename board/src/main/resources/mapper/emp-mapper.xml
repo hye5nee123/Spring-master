@@ -28,6 +28,10 @@
 		<result property="firstName" column="FIRST_NAME"></result>
 		<result property="phone" column="PHONE_NUMBER"></result>
 	</resultMap>
+	<select id="getCount" resultType="long">
+		SELECT count(*)
+		FROM employees
+	</select>
 	<select id="getEmpList" resultMap="empResultMap">
 		SELECT * FROM ( SELECT rownum rn, a.* FROM (
 
@@ -43,7 +47,8 @@
 		COMMISSION_PCT,
 		MANAGER_ID,
 		DEPARTMENT_ID
-		FROM employees e
+		FROM
+		employees e
 		<include refid="condition"></include>
 		ORDER BY employee_id DESC
 
@@ -65,10 +70,10 @@
 		INSERT INTO employees
 		(
 		employee_id
-			, first_name
+		, first_name
 		, last_name
 		, email
-			, phone_number
+		, phone_number
 		, hire_date
 		, job_id
 		<if test="salary != null">
@@ -86,7 +91,8 @@
 		, #{lastName}
 		, #{email}
 		, #{phoneNumber}
-		, #{hireDate}
+		,
+		#{hireDate}
 		, #{jobId}
 		<if test="salary != null">
 			, #{salary}

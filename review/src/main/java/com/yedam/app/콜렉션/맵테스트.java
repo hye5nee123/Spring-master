@@ -23,10 +23,21 @@ public class 맵테스트 {
 	List<HashMap<String,String>> emplist = new ArrayList<HashMap<String,String>>;
 	map = new HashMap
 	for(String key : empList) {
-		System.out.println(ket + );
+		System.out.println(ket + empList);
 	}
 	
 				
+	
+	
+	
+	
+	
+	
+	for(HahMap<String, Object> empMap : empList) {
+		if(Integer)(empMap.get("firstName")>=15000){
+			System.out.println(empMap.get());
+		}
+	}
 				
 	}
 

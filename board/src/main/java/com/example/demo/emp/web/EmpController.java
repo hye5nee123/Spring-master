@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.common.Paging;
 import com.example.demo.emp.EmpSearchVO;
 import com.example.demo.emp.EmpVO;
 import com.example.demo.emp.mapper.EmpMapper;
@@ -57,7 +58,14 @@ public class EmpController {
 	}
 
 	@GetMapping("/emp/list")
-	public String empList(Model model, EmpVO vo, EmpSearchVO svo) {
+	public String empList(Model model, EmpVO vo, EmpSearchVO svo, Paging pvo) {
+		// 페이징처리
+		svo.setStart(pvo.getFirst());
+		svo.setEnd(pvo.getLast());
+		pvo.setTotalRecord(mapper.getCount());
+		model.addAllAttribute("paging", pvo);
+		// 목록조회
+
 		model.addAttribute("empList", mapper.getEmpList(vo, svo));
 		return "emp/list";
 	}
