@@ -19,7 +19,7 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public Map<String,Object>  getEmpList(EmpVO vo, SearchVO svo) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		//리스트와 전체건수
+		//리스트와 전체건수 xddc
 		map.put("data", empMapper.getEmpList(vo, svo));
 		map.put("count", empMapper.getCount(vo, svo));
 		
