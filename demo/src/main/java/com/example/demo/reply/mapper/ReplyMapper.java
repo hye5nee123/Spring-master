@@ -8,6 +8,6 @@ import com.example.demo.reply.ReplyVO;
 public interface ReplyMapper {
 	public int insert(int ReplyVO);
 
-	public ReplyVO read(ReplyVO rno);
+	public ReplyVO read(ReplyVO bno);
 
 }
