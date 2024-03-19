@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmpVO {
+	//empVO
 	int employeeId;
 	String firstName;
 	String lastName;
