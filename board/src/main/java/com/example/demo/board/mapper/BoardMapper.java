@@ -19,6 +19,11 @@ public interface BoardMapper {
 	int updateBoard(BoardVO vo);
 
 	int deleteBoard(int boardNo);
+<<<<<<< HEAD
 
 	int getBoardList(BoardVO vo);
+=======
+	public long getCount(BoardVO vo,SearchVO svo);
+
+>>>>>>> parent of 44a5876 (commit)
 }

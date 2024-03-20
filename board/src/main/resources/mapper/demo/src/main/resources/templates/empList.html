@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"  >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.firstRow {  color : yellowgreen; }
+	.oddRow {  color : cyan; }
+	.backColor { background-color: #eeeeee}
+</style>
+</head>
+<body>
+ <div layout:fragment="content">
+    사원수<span th:text="${#lists.size(empList)}">10</span>명
+    회사명<span th:utext="${companyName}" >...</span>
+	<table >
+		<tr>
+			<th>No</th>
+			<th>employee_id</th>
+			<th>NAME</th>
+			<th>hire_date</th>
+			<th>salary</th>
+			<th>보너스</th> 
+			<th>수정/삭제</th> 
+		</tr>
+		<tr th:each="emp,stat : ${empList}"  >
+			<td th:text="${ stat.count  }" class="backColor" th:classappend="${stat.first? 'firstRow' : stat.odd ? 'oddRow' : _ }" >1</td>
+			<td th:text="${emp.employeeId}">100</td>
+			
+			<td th:text="${emp.firstName} + ' ' + ${emp.lastName}">길동</td>
+		<!--/* <td th:text="|${emp.firstName}  ${emp.lastName}|">길동</td>
+			<td> [[ ${emp.firstName} ]]  [[ ${emp.lastName} ]] </td>  */-->
+	
+			<td th:text="${#dates.format(emp.hireDate,'yyyy-MM-dd')}">2020-01-01</td>
+			<td th:text="${emp.salary}">2,000</td>
+			<td> <button th:if="${emp.salary < 10000}">신청</button>
+			     <button th:unless="${emp.salary < 10000}">미신청</button>
+			</td>
+			<td> <!-- localhost:8081/update/100 -->
+				<a th:href="@{/update/{id}(id=${emp.employeeId})}">수정</a>
+				<!-- localhost:8081/delete?employeeId=100&name=xxx -->
+				<a th:href="@{/delete(employeeId=${emp.employeeId},name=${emp.firstName})}">삭제</a>
+			</td>
+		</tr>
+	</table>
+	
+	[[${paging}]]
+	
+	<div class="footerSector" th:replace="~{footer :: addr}"> 여기에 삽입 </div>
+	
+	<script th:inline="javascript">
+		let emplist = [[${empList}]]
+		console.log(emplist[0].firstName)
+	</script>
+	</div>	
+</body>
+</html>

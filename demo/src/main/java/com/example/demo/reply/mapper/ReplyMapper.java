@@ -8,6 +8,10 @@ import com.example.demo.reply.ReplyVO;
 public interface ReplyMapper {
 	public int insert(int ReplyVO);
 
+<<<<<<< HEAD
 	public ReplyVO read(ReplyVO rno);
+=======
+	public ReplyVO read(ReplyVO bno);
+>>>>>>> parent of 44a5876 (commit)
 
 }

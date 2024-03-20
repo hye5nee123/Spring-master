@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.board.mapper.BoardMapper">
+<<<<<<< HEAD
 	
 	<sql id="condition">
 		<where>
@@ -88,4 +89,92 @@
 		 WHERE board_no = #{boardNo}	
 	</delete>
 	
+=======
+
+	<select id="getBoardList" resultType="BoardVO">
+		select * from (select ROWNUM as rn, a.* from (
+		select BOARD_NO
+		,TITLE
+		,CONTENT
+		,WRITER
+		,WRITE_DATE
+		,CLICK_CNT
+		,IMAGE
+		from board
+		<where>
+			<if test="vo.title != null">
+				TITLE = #{vo.title}
+			</if>
+			<if test="vo.content != null">
+				CONTENT = #{vo.content}
+			</if>
+			<if test="vo.writer != null">
+				WRITER = #{vo.writer}
+			</if>
+		</where>
+	<![CDATA[
+	) a where ROWNUM <= #{svo.end}) b where rn >= #{svo.start}
+	]]>
+
+	</select>
+
+	<select id="getBoardInfo" parameterType="int"
+		resultType="BoardVO">
+		SELECT board_no
+		, title
+		, content
+		, writer
+		, write_date
+		, click_cnt
+		, image
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+
+	<insert id="insertBoard" parameterType="BoardVO">
+		<selectKey keyProperty="boardNo" order="BEFORE"
+			resultType="int">
+			SELECT board_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO board
+		(
+		board_no
+		, title
+		, content
+		, writer
+		, write_date
+		, click_cnt
+		, image
+		)
+		VALUES
+		(
+		#{boardNo}
+		, #{title}
+		, #{content}
+		, #{writer}
+		, #{writeDate}
+		, #{clickCnt}
+		, #{image}
+		)
+	</insert>
+
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE board
+		SET title = #{title}
+		, content = #{content}
+		WHERE board_no = #{boardNo}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE board_no = #{boardNo}
+	</delete>
+
+	<select id="getCount" resultType="Long">
+		select count(*)
+		from board
+	</select>
+
+>>>>>>> parent of 44a5876 (commit)
 </mapper>

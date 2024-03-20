@@ -1,7 +1,6 @@
 package com.example.demo.emp.web;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +11,37 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.common.Paging;
 import com.example.demo.emp.EmpVO;
 import com.example.demo.emp.SearchVO;
-import com.example.demo.emp.service.EmpService;
+import com.example.demo.emp.mapper.EmpMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller // 컨테이너 빈 등록 + 사용자요청처리할 수 있는 커맨드 핸들러 변환
 public class EmpController {
-
-	final EmpService empService;   //의존성주입(DI dependency Injection)
+	
+	
+	final EmpMapper mapper;   //의존성주입(DI dependency Injection)
+	
+	
+	@RequestMapping("/ajaxEmp")
+	@ResponseBody
+	public List<EmpVO>  ajaxEmp() {
+		return mapper.getEmpList(null, null);
+	}
+	
+	
+	@RequestMapping("/empResult")
+	public String result(){
+		return "result";
+	}
+	
 	
 	@RequestMapping("/empList")
 	public String empList(Model model, 
@@ -39,14 +54,11 @@ public class EmpController {
 		pvo.setPageSize(3);  //페이지번호
 		svo.setStart(pvo.getFirst());
 		svo.setEnd(pvo.getLast());
-		
-		Map<String,Object> map = empService.getEmpList(vo, svo);
-		
-		pvo.setTotalRecord((Long)map.get("count"));
+		pvo.setTotalRecord(mapper.getCount(vo,svo));
 		model.addAttribute("paing", pvo);
 		
 		//목록조회
-		model.addAttribute("empList", map.get("data"));
+		model.addAttribute("empList", mapper.getEmpList(vo, svo));
 		return "empList"; 
 	}
 	
@@ -63,6 +75,7 @@ public class EmpController {
 		return new ResponseEntity<>(vo, HttpStatus.OK);
 	}
 	
+	
 	@PostMapping("/insert")
 	public ModelAndView insert(@ModelAttribute("emp") EmpVO vo) {
 		System.out.println(vo);
@@ -78,7 +91,7 @@ public class EmpController {
 	
 	@GetMapping("/info/{empId}")
 	public String info(@PathVariable int empId, Model model) {
-		model.addAttribute("emp", empService.getEmpInfo(empId));
+		model.addAttribute("emp", mapper.getEmpInfo(empId));
 		return "empInfo";
 	}  
 	
@@ -90,17 +103,14 @@ public class EmpController {
 	
 	@GetMapping("/delete")
 	public String delete(int employeeId, String name) {
-		empService.deleteEmp(employeeId);
-		return "redirect:empList";
+		System.out.println(employeeId + ":" + name);
+		return "index";
 	}  
-	
-
-	
-	
 	
 	@GetMapping("/")
 	public String test() {
 		return "index";
 	}  
+
 
 }

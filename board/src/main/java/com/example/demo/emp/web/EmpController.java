@@ -63,7 +63,11 @@ public class EmpController {
 		svo.setStart(pvo.getFirst());
 		svo.setEnd(pvo.getLast());
 		pvo.setTotalRecord(mapper.getCount());
+<<<<<<< HEAD
 		model.addAllAttribute("paging", pvo);
+=======
+		model.addAttribute("paging", pvo);
+>>>>>>> parent of 44a5876 (commit)
 		// 목록조회
 
 		model.addAttribute("empList", mapper.getEmpList(vo, svo));

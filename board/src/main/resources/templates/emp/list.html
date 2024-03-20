@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+ <tr>
+ <th>employee_id</th>
+ <th>first_name</th>
+ <th>last_name</th>
+ </tr>
+<tr th:each="emp : ${empList}">
+ <td th:text="${emp.employeeId}"></td>
+ <td th:text="${emp.firstName}"></td>
+ <td th:text="${emp.lastName}"></td>
+ <td th:text="${emp.hireDate}"></td>
+ <td>
+ <a th:href="@{/emp/insert}">등록</a>
+ <a th:href="@{/emp/update/{id}(id=${emp.employeeId})}">수정</a>
+<a th:href="@{/delete(employeeId=${emp.employeeId})}">삭제</a>
+</td>
+ </tr>
+</table>
+</body>
+</html>
