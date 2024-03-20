@@ -30,5 +30,6 @@ public interface BoardMapper {
 =======
 	public long getCount(BoardVO vo,SearchVO svo);
 
+	public long getCount(BoardVO vo,SearchVO svo);
 >>>>>>> parent of 44a5876 (commit)
 }
