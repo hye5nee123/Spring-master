@@ -4,7 +4,11 @@ import lombok.Data;
 
 @Data
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class SearchVO{
+=======
+public class SearchVO {
+>>>>>>> parent of 44a5876 (commit)
 =======
 public class SearchVO {
 >>>>>>> parent of 44a5876 (commit)

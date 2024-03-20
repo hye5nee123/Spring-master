@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.board.mapper.BoardMapper">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	<sql id="condition">
 		<where>
@@ -90,6 +91,8 @@
 	</delete>
 	
 =======
+=======
+>>>>>>> parent of 44a5876 (commit)
 
 	<select id="getBoardList" resultType="BoardVO">
 		select * from (select ROWNUM as rn, a.* from (
@@ -176,5 +179,8 @@
 		from board
 	</select>
 
+<<<<<<< HEAD
+>>>>>>> parent of 44a5876 (commit)
+=======
 >>>>>>> parent of 44a5876 (commit)
 </mapper>

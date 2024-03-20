@@ -3,6 +3,11 @@ package com.example.demo.board;
 import java.util.Date;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import org.springframework.format.annotation.DateTimeFormat;
+
+>>>>>>> parent of 44a5876 (commit)
 =======
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +27,10 @@ public class BoardVO {
 	String content;
 	String writer;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
+>>>>>>> parent of 44a5876 (commit)
 =======
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 >>>>>>> parent of 44a5876 (commit)

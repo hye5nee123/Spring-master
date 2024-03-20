@@ -8,7 +8,11 @@ public class Paging {
 	int pageUnit = 10; // 한페이지 출력할 레코드 건수
 	int pageSize = 10; // 페이지번호 수 (5) 1~ 5까지
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int lastPage; // 마지막 페이지번호
+=======
+	long lastPage; // 마지막 페이지번호
+>>>>>>> parent of 44a5876 (commit)
 =======
 	long lastPage; // 마지막 페이지번호
 >>>>>>> parent of 44a5876 (commit)
@@ -46,7 +50,11 @@ public class Paging {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public long getLastPage() {
+=======
+	public long getLastPage(long lastPage) {
+>>>>>>> parent of 44a5876 (commit)
 =======
 	public long getLastPage(long lastPage) {
 >>>>>>> parent of 44a5876 (commit)
@@ -55,7 +63,11 @@ public class Paging {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public long setLastPage(long lastPage) {
+=======
+	public void setLastPage(long lastPage) {
+>>>>>>> parent of 44a5876 (commit)
 =======
 	public void setLastPage(long lastPage) {
 >>>>>>> parent of 44a5876 (commit)
@@ -67,7 +79,11 @@ public class Paging {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public long setTotalRecord(long totalRecord) {
+=======
+	public void setTotalRecord(long totalRecord) {
+>>>>>>> parent of 44a5876 (commit)
 =======
 	public void setTotalRecord(long totalRecord) {
 >>>>>>> parent of 44a5876 (commit)

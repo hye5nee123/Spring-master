@@ -20,8 +20,13 @@ public interface BoardMapper {
 
 	int deleteBoard(int boardNo);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	int getBoardList(BoardVO vo);
+=======
+	public long getCount(BoardVO vo,SearchVO svo);
+
+>>>>>>> parent of 44a5876 (commit)
 =======
 	public long getCount(BoardVO vo,SearchVO svo);
 
